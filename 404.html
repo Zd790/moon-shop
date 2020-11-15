@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/404.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<title></title>
+	</head>
+		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				///开始
+				// 回顶部按钮
+				$(window).scroll(function(){
+					if($(window).scrollTop()>100){
+						$(".topq").css("display","block");
+					}else{
+						$(".topq").css("display","none")
+					}
+				})
+				$(".topq").click(function(){
+					$(window).scrollTop(0);
+				})
+				
+				//首页导航条的hover事件
+				$(".register,.land,.language,.ulbox li").hover(function(){
+					$(this).css("color","red")
+				},function(){
+					$(this).css("color","white")
+				}
+				);
+				$(".language_USD > div").hover(function(){
+					$(".USD").css("color","red")
+					$(".little_wrap>img").attr("src","img/arrow_toptitlered.png")
+					$(".USD_menu").css("display","block")
+				},function(){
+					$(".USD").css("color","white")
+					$(".little_wrap>img").attr("src","img/arrow_toptitle.png")
+					$(".USD_menu").css("display","none")
+				}
+				);
+				//首页菜单事件
+				
+				//搜索框
+				$(".search").click(function(){
+					if($(".search_input input").css("min-width")==="0"+"px"){
+						$(".search_input input").css("display","inline").animate({minWidth:"880px"})
+					}else{
+						$(".search_input input").animate({minWidth:"0px"},function(){$(".search_input input").css("display","none")})
+					}
+				})
+				//菜单
+				//后边两个按钮
+				$(".a_wrap2 a").hover(function(){
+					$(this).siblings().stop().animate({minWidth:"32px"})
+				},function(){
+					$(this).siblings().stop().animate({minWidth:"0px"})
+				  }
+				);
+				//前三个按钮
+				$(".a_wrap_hover").hover(function(){
+					$(this).children(".red_line").stop().animate({minWidth:"32px"})
+					$(this).next().stop().css("display","block").animate({top:"23px",opacity:"1"})
+				},function(){
+					$(this).children(".red_line").stop().animate({minWidth:"0px"})
+					$(this).next().stop().animate({top:"40px",opacity:"0"},function(){$(this).next().css("display","none")})
+				  }
+				);
+				//下滑菜单的hover事件
+				$(".homepage_bottom,.commodity_bottom,.mine_bottom").hover(function(){
+					$(this).stop().css("display","block")
+				},function(){
+					$(this).stop().animate({top:"40px",opacity:"0"},function(){$(this).css("display","none")})
+				}
+				);
+				
+			});
+		</script>
+	<body>
+		<div class="topq">回顶部</div>
+		<!-- 首页顶部导航条 -->
+		<div class="top_title">
+			<div class="top_title_wrap">
+				<div class="register_land">
+					<a class="register" href="register.html" target="_blank">注册</a>
+					<div class="toptitle_line"></div>
+					<a class="land" href="land.html" target="_blank">登陆</a>
+					<div class="clear"></div>
+				</div>
+				<div class="language_USD">
+					<a class="language" href="home_page.html">语言</a>
+					<div class="little_wrap">
+						<a class="USD" href="home_page.html">USD</a>
+						<img src="img/arrow_toptitle.png" />
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+					<div class="USD_menu">
+						<div class="emptybox">
+							<img src="img/uparrow.png" />
+						</div>
+						<div class="ulbox">
+							<ul>
+								<li>USD</li>
+								<li>URO</li>
+								<li>GBP</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- 首页菜单 -->
+		<div class="menu_wrap" style="width: 100%;background-color: white;">
+			<div class="menu">
+				<div class="logo">
+					<img src="img/logo.png"/>
+				</div>
+				<div class="main_menu">
+					<div class="a_wrap1">
+						<div class="a_wrap_hover">
+							<a>首页</a>
+							<div class="red_line"></div>
+						</div>
+						<div class="homepage_bottom">
+							<div class="homepage_bottomempty">
+								<img src="img/uparrow.png" >
+							</div>
+							<ul>
+								<li>首页1</li>
+								<li>首页2</li>
+								<li>首页3</li>
+							</ul>
+						</div>
+					</div>
+					<div class="a_wrap1">
+						<div class="a_wrap_hover">
+							<a>商品</a>
+							<div class="red_line"></div>
+						</div>
+						<div class="commodity_bottom">
+							<div class="homepage_bottomempty">
+								<img src="img/uparrow.png" >
+							</div>
+							<ul>
+								<li>首页1</li>
+								<li>首页2</li>
+								<li>首页3</li>
+							</ul>
+						</div>
+					</div>
+					<div class="a_wrap1">
+						<div class="a_wrap_hover">
+							<a>我的</a>
+							<div class="red_line"></div>
+						</div>
+						<div class="mine_bottom">
+							<div class="homepage_bottomempty">
+								<img src="img/uparrow.png" >
+							</div>
+							<ul>
+								<li>首页1</li>
+								<li>首页2</li>
+								<li>首页3</li>
+							</ul>
+						</div>
+					</div>
+					<div class="a_wrap2">
+						<a>博客</a>
+						<div class="red_line"></div>
+					</div>
+					<div class="a_wrap2">
+						<a>联系</a>
+						<div class="red_line"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="search_shoppingcart">
+					
+					<img class="shoppingcart" src="img/shoppingcart.png"/>
+				</div>
+				<div class="clear"></div>
+				<div class="search_input">
+					<input class="input" type="search" placeholder="搜索......" />
+					<img class="search" src="img/search.png"/>
+				</div>
+			<!-- 菜单结尾 -->	
+			</div>
+		</div>
+		<div id="body_404">
+			<img src="./img/404.png" />
+			<h1>PAGE NOT FOUND<br /> 
+			It looks like you're lost...</h1>
+			<div id="body_404button">TAKE ME OUT OF HERE</div>
+		</div>
+		
+		<!-- 页面底部 -->
+		<div class="page_bottom">
+			<div class="page_bottom_next">
+				<div id="next_wrap">
+					<div id="next_logo">
+						<img src="./img/footer-logo.png"/>
+						<p>Lorem ipsum dolor sit amet, consec <br />
+						adipisicing elit, sed do eiusmod <br />
+						empor incididunt oloremque <br />
+						laudantium,</p>
+						<div id="little_pic_wrap">
+							
+						</div>
+					</div>
+					<div id="next_address">
+						<h1>联系地址</h1>
+						<p>
+							1025-1035 Park Ave, <br />
+							New York, <br />
+							NY 10028, USA <br />
+							+1 123-456-7890 <br />
+							sales@koolinc.com
+						</p>
+					</div>
+					<div id="next_collection">
+						<h1>C O L L E C T I O N</h1>
+						<p>
+							Men <br />
+							Woman <br />
+							Kids <br />
+							Accessories <br />
+							Sale <br />
+							Comming soon <br />
+						</p>
+					</div>
+					<div id="next_shop">
+						<h1>S H O P</h1>
+						<p>
+							Shipping Methods <br />
+							About us <br />
+							Career <br />
+							Contact <br />
+						</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div id="page_bottom_bottom">
+				<h1>
+					© 2016  
+					<span>wilylab.</span>
+					All Rights Reserved
+				</h1>
+				<img src="img/payment.png"/>
+				<div class="clear"></div>
+			</div>
+			
+		</div>
+		
+		
+	</body>
+</html>

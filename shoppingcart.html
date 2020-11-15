@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/shoppingcart.css" />
+		<link rel="stylesheet" href="css/common.css" />
+	</head>
+		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script>
+			
+			$(document).ready(function(){
+				// var int=setInterval(function(){location.reload()},2000)
+				// ///开始
+				
+				// 回顶部按钮
+				$(window).scroll(function(){
+					if($(window).scrollTop()>100){
+						$(".top").css("display","block");
+					}else{
+						$(".top").css("display","none")
+					}
+				})
+				$(".top").click(function(){
+					$(window).scrollTop(0);
+				})
+				//首页导航条的hover事件
+				$(".register,.land,.language,.ulbox li").hover(function(){
+					$(this).css("color","red")
+				},function(){
+					$(this).css("color","white")
+				}
+				);
+				$(".language_USD > div").hover(function(){
+					$(".USD").css("color","red")
+					$(".little_wrap>img").attr("src","img/arrow_toptitlered.png")
+					$(".USD_menu").css("display","block")
+				},function(){
+					$(".USD").css("color","white")
+					$(".little_wrap>img").attr("src","img/arrow_toptitle.png")
+					$(".USD_menu").css("display","none")
+				}
+				);
+				//搜索框
+				$(".search").click(function(){
+					if($(".search_input input").css("min-width")==="0"+"px"){
+						$(".search_input input").css("display","inline").animate({minWidth:"880px"})
+					}else{
+						$(".search_input input").animate({minWidth:"0px"},function(){$(".search_input input").css("display","none")})
+					}
+				})
+				//菜单
+				//后边两个按钮
+				$(".a_wrap2 a").hover(function(){
+					$(this).siblings().stop().animate({minWidth:"32px"})
+				},function(){
+					$(this).siblings().stop().animate({minWidth:"0px"})
+				  }
+				);
+				//前三个按钮
+				$(".a_wrap_hover").hover(function(){
+					$(this).children(".red_line").stop().animate({minWidth:"32px"})
+					$(this).next().stop().css("display","block").animate({top:"23px",opacity:"1"})
+				},function(){
+					$(this).children(".red_line").stop().animate({minWidth:"0px"})
+					$(this).next().stop().animate({top:"40px",opacity:"0"},function(){$(this).next().css("display","none")})
+				  }
+				);
+				//下滑菜单的hover事件
+				$(".homepage_bottom,.commodity_bottom,.mine_bottom").hover(function(){
+					$(this).stop().css("display","block")
+				},function(){
+					$(this).stop().animate({top:"40px",opacity:"0"},function(){$(this).css("display","none")})
+				}
+				);
+				// 总价的计算
+				var TotalPrice=[];
+			
+				// 勾选按钮click事件
+				$(".bottom_round").click(function(){
+					if($(this).hasClass("yes")==true){
+						$(this).css("background","transparent").removeClass("yes");
+						var e=parseInt($(this).parent().siblings().filter(".list_2-5").find("a").text())
+						TotalPrice.push(-e)
+						var h=0;
+						for(var i=0;i<TotalPrice.length;i++){
+							h+=TotalPrice[i]
+						}
+						$(this).parents().filter(".cart_background").find(".totalfinal").find("a").text(h)
+						$(this).parents().filter(".cart_background").find("#num").find("a").text(h)
+					}else{
+						$(this).css("background","url(../shop/img/right.png)").addClass("yes")	
+						var e=parseInt($(this).parent().siblings().filter(".list_2-5").find("a").text())
+						TotalPrice.push(e)
+						var h=0;
+						for(var i=0;i<TotalPrice.length;i++){
+							h+=TotalPrice[i]
+						}
+						$(this).parents().filter(".cart_background").find(".totalfinal").find("a").text(h)
+						$(this).parents().filter(".cart_background").find("#num").find("a").text(h)
+					}
+				})
+				// 数量加减
+				$(".add").click(function(){
+					if(parseInt($(this).prev().children().text())>0){
+						var a=parseInt($(this).prev().children().text());
+						var b=parseInt($(this).parents().filter(".list_2-4").prev().find("a").text());
+						var c;
+						a=a+1;
+						c=a*b;
+						$(this).parents().filter(".list_2-4").next().find("a").text(c)
+						$(this).prev().children().text(a);
+						
+ 						var x=parseInt($(this).parents().filter(".list_2-4").prev().find("a").text())
+						if($(this).parents().filter(".list_2-4").siblings().filter(".list_2-1").find(".bottom_round").hasClass("yes")===true){
+							TotalPrice.push(x);
+							var z=0;
+							for(var i=0;i<TotalPrice.length;i++){
+								z+=TotalPrice[i]
+							}
+							$(".finalprice").text(z)
+						}
+					}
+				});
+				$(".reduce").click(function(){
+					if(parseInt($(this).next().children().text())>1){
+						var a=parseInt($(this).next().children().text());
+						var b=parseInt($(this).parents().filter(".list_2-4").prev().find("a").text());
+						var c;
+						a=a-1;
+						c=a*b;
+						$(this).parents().filter(".list_2-4").next().find("a").text(c)
+						$(this).next().children().text(a);
+						
+						var x=parseInt($(this).parents().filter(".list_2-4").prev().find("a").text())
+						if($(this).parents().filter(".list_2-4").siblings().filter(".list_2-1").find(".bottom_round").hasClass("yes")===true){
+							TotalPrice.push(-x)
+							var z=0;
+							for(var i=0;i<TotalPrice.length;i++){
+								z+=TotalPrice[i]
+							}
+							$(".finalprice").text(z)
+						}
+					}
+				});
+				
+				// 购物车选项卡click事件
+				$(".click_one").click(function(){
+					$(".click_two,.click_three").css({"color":"#9b9b9c","background-color":"#EFEFEF"})
+					$(".commodity_list").css("display","block")
+					$(".commodity_listsecond").css("display","none")
+					$(".commodity_listthird").css("display","none")
+				})
+				$(".click_two").click(function(){
+					$(".click_two,.click_one").css({"color":"white","background-color":"red"})
+					$(".click_three").css({"color":"#9b9b9c","background-color":"#EFEFEF"})
+					$(".commodity_list").css("display","none")
+					$(".commodity_listsecond").css("display","block")
+					$(".commodity_listthird").css("display","none")
+				})
+				$(".click_three").click(function(){
+					$(".click_two,.click_three,.click_one").css({"color":"white","background-color":"red"})
+					$(".commodity_list").css("display","none")
+					$(".commodity_listsecond").css("display","none")
+					$(".commodity_listthird").css("display","block")
+				})
+				
+				
+				
+				
+			});
+		</script>
+	<body>
+		<div class="top">回顶部</div>
+		<!-- 首页顶部导航条 -->
+		<div class="top_title">
+			<div class="top_title_wrap">
+				<div class="register_land">
+					<a class="register" href="register.html" target="_blank">注册</a>
+					<div class="toptitle_line"></div>
+					<a class="land" href="land.html" target="_blank">登陆</a>
+					<div class="clear"></div>
+				</div>
+				<div class="language_USD">
+					<a class="language" href="home_page.html">语言</a>
+					<div class="little_wrap">
+						<a class="USD" href="home_page.html">USD</a>
+						<img src="img/arrow_toptitle.png" />
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+					<div class="USD_menu">
+						<div class="emptybox">
+							<img src="img/uparrow.png" />
+						</div>
+						<div class="ulbox">
+							<ul>
+								<li>USD</li>
+								<li>URO</li>
+								<li>GBP</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- 首页菜单 -->
+		<div class="menu_wrap" style="width: 100%;background-color: white;">
+			<div class="menu">
+				<div class="logo">
+					<img src="img/logo.png"/>
+				</div>
+				<div class="main_menu">
+					<div class="a_wrap1">
+						<div class="a_wrap_hover">
+							<a>首页</a>
+							<div class="red_line"></div>
+						</div>
+						<div class="homepage_bottom">
+							<div class="homepage_bottomempty">
+								<img src="img/uparrow.png" >
+							</div>
+							<ul>
+								<li>首页1</li>
+								<li>首页2</li>
+								<li>首页3</li>
+							</ul>
+						</div>
+					</div>
+					<div class="a_wrap1">
+						<div class="a_wrap_hover">
+							<a>商品</a>
+							<div class="red_line"></div>
+						</div>
+						<div class="commodity_bottom">
+							<div class="homepage_bottomempty">
+								<img src="img/uparrow.png" >
+							</div>
+							<ul>
+								<li>首页1</li>
+								<li>首页2</li>
+								<li>首页3</li>
+							</ul>
+						</div>
+					</div>
+					<div class="a_wrap1">
+						<div class="a_wrap_hover">
+							<a>我的</a>
+							<div class="red_line"></div>
+						</div>
+						<div class="mine_bottom">
+							<div class="homepage_bottomempty">
+								<img src="img/uparrow.png" >
+							</div>
+							<ul>
+								<li>首页1</li>
+								<li>首页2</li>
+								<li>首页3</li>
+							</ul>
+						</div>
+					</div>
+					<div class="a_wrap2">
+						<a>博客</a>
+						<div class="red_line"></div>
+					</div>
+					<div class="a_wrap2">
+						<a>联系</a>
+						<div class="red_line"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="search_shoppingcart">
+					
+					<img class="shoppingcart" src="img/shoppingcart.png"/>
+				</div>
+				<div class="clear"></div>
+				<div class="search_input">
+					<input class="input" type="search" placeholder="搜索......"/>
+					<img class="search" src="img/search.png"/>
+				</div>
+			<!-- 菜单结尾 -->	
+			</div>
+		</div>
+	<!-- 购物车部分 -->
+	<div class="cart_background">
+		<!-- 顶部选项卡 -->
+		<div class="click_wrap">
+			<div>
+				<div class="click_one click_">1</div>
+				<p class="spec_1">购物车</p>
+			</div>
+			<div class="click_line"></div>
+			<div>
+				<div class="click_two click_">2</div>
+				<p class="spec_2">结算</p>
+			</div>
+			<div class="click_line"></div>
+			<div>
+				<div class="click_three click_">3</div>
+				<p class="spec_3">待收货</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!-- 1.购物车主体 -->
+		<div class="commodity_list">
+			<h1>购物车</h1>
+			<!-- 商品列表 -->
+			<ul>
+				<li class="cart_head">
+					<div class="list_1">
+						<span>勾选</span>
+					</div>
+					<div class="list_2">
+						<span>商品</span>
+					</div>
+					<div class="list_3">
+						<span>价格</span>
+					</div>
+					<div class="list_4">
+						<span>数量</span>
+					</div>
+					<div class="list_5">
+						<span>全部</span>
+					</div>
+					<div class="list_6">
+						<span>移除</span>
+					</div>
+					<div class="clear"></div>
+				</li>
+				<li class="cartlist_1">
+					<div class="list_2-1">
+						<div class="bottom_round"></div>
+					</div>
+					<div class="list_2-2">
+						<div class="picforcart"></div>
+						<div class="inform">
+							<span class="name">时尚短袖</span><br />
+							<span class="size">尺寸：M</span><br />
+							<span class="color">颜色：深蓝</span>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="list_2-3">
+						<span>$
+							<a>238</a>
+						</span>
+					</div>
+					<div class="list_2-4">
+						<div class="number_wrap">
+							<div class="reduce">-</div>
+							<div class="num">
+								<a>1</a>
+							</div>
+							<div class="add">+</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="list_2-5">
+						<span>
+							$<a class="allnum">238</a>
+						</span>
+					</div>
+					<div class="list_2-6">
+						<div class="delete">
+							<img src="./img/delete.png" />
+						</div>
+					</div>
+					<div class="clear"></div>
+				</li>
+				<li class="cartlist_2">
+					<div class="list_2-1">
+						<div class="bottom_round"></div>
+					</div>
+					<div class="list_2-2">
+						<div class="picforcart"></div>
+						<div class="inform">
+							<span class="name">时尚短袖</span><br />
+							<span class="size">尺寸：M</span><br />
+							<span class="color">颜色：深蓝</span>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="list_2-3">
+						<span>$
+							<a>356</a>
+						</span>
+					</div>
+					<div class="list_2-4">
+						<div class="number_wrap">
+							<div class="reduce">-</div>
+							<div class="num">
+								<a>1</a>
+							</div>
+							<div class="add">+</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="list_2-5">
+						<span>
+							$<a class="allnum">356</a>
+						</span>
+					</div>
+					<div class="list_2-6">
+						<div class="delete">
+							<img src="./img/delete.png" />
+						</div>
+					</div>
+					<div class="clear"></div>
+				</li>
+				<li class="cartlist_3">
+					<div class="list_2-1">
+						<div class="bottom_round"></div>
+					</div>
+					<div class="list_2-2">
+						<div class="picforcart"></div>
+						<div class="inform">
+							<span class="name">时尚短袖</span><br />
+							<span class="size">尺寸：M</span><br />
+							<span class="color">颜色：深蓝</span>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="list_2-3">
+						<span>$
+							<a>128</a>
+						</span>
+					</div>
+					<div class="list_2-4">
+						<div class="number_wrap">
+							<div class="reduce">-</div>
+							<div class="num">
+								<a>1</a>
+							</div>
+							<div class="add">+</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="list_2-5">
+						<span>
+							$<a class="allnum">128</a>
+						</span>
+					</div>
+					<div class="list_2-6">
+						<div class="delete">
+							<img src="./img/delete.png" />
+						</div>
+					</div>
+					<div class="clear"></div>
+				</li>
+				<!-- 结算界面 -->
+				<li class="cart_bottom">
+					<div class="cart_bottom_left">
+						<span>运费</span>
+						<div class="input_wrap_left">
+							<select>
+								<option>111</option>
+								<option>111</option>
+								<option>111</option>
+							</select><br />
+							<select>
+								<option>111</option>
+							</select><br />
+							<select>
+								<option>111</option>
+							</select>
+						</div>
+						<div class="cart_bottom_button">运费</div>
+					</div>
+					<div class="cart_bottom_center">
+						<span>优惠券</span>
+						<h1>可以使用优惠券</h1>
+						<input placeholder="填写地址:" />
+						<div class="cart_bottom_center_botton">使用优惠券</div>
+					</div>
+					<div class="cart_bottom_right">
+						<div>
+							<span class="pay">付款方式</span>
+							<div class="totalandnum">
+								<div id="total">合计</div>
+								<div id="num">
+									<span>
+										$<a class="finalprice">00.00</a>
+									</span>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="totalandnum_next">
+								<div class="total_next">配送</div>
+								<div class="num_next">免费配送</div>
+								<div class="clear"></div>
+							</div>
+							<div class="cart_bottom_right_line"></div>
+							<div class="totalfinal">
+								<span>
+									$<a class="finalprice">00.00</a>
+								</span>
+							</div>
+							<div class="settlement">结算</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</li>
+			</ul>
+		</div>
+		
+		<!-- 2.结算选项卡 -->
+		<div class="commodity_listsecond">
+			<h1>结算</h1>
+		</div>
+		<!-- 3.待收货选项卡 -->
+		<div class="commodity_listthird">
+			<h1>待收货</h1>
+		</div>
+	</div>
+	</body>
+</html>
